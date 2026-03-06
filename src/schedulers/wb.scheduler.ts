@@ -3,7 +3,7 @@ import { fetchAndSave } from "#services/wb.service.js";
 import cron from "node-cron";
 
 export function startWbScheduler() {
-    cron.schedule("*/1 * * * *", async () => {
+    cron.schedule("0 * * * *", async () => {
         try {
             logger.info("Starting WB tariffs update");
             await fetchAndSave(new Date());
