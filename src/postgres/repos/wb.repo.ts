@@ -1,11 +1,11 @@
 import knex from "#postgres/knex.js";
 import { WbApiResponse } from "#types/wb.js";
-import { getTodayDate } from "#utils/utils.js";
+import { formatDate } from "#utils/utils.js";
 import { WbBoxTariffDb } from "./types/wb.types.js";
 
-export async function saveBoxTariffs(response: WbApiResponse["response"]) {
+export async function saveBoxTariffs(response: WbApiResponse["response"], date: Date) {
     const rows = response.data.warehouseList.map((w) => ({
-        date: getTodayDate(),
+        date: formatDate(),
         warehouse_name: w.warehouseName,
         geo_name: w.geoName,
         box_delivery_base: w.boxDeliveryBase,
@@ -23,5 +23,5 @@ export async function saveBoxTariffs(response: WbApiResponse["response"]) {
 }
 
 export async function getTariffsSorted(sortBy: "ASC" | "DESC"): Promise<WbBoxTariffDb[]> {
-    return knex("wb_box_tariffs").select("*").where("date", getTodayDate()).orderBy("box_delivery_coef_expr", sortBy) as unknown as Promise<WbBoxTariffDb[]>;
+    return knex("wb_box_tariffs").select("*").where("date", formatDate()).orderBy("box_delivery_coef_expr", sortBy) as unknown as Promise<WbBoxTariffDb[]>;
 }

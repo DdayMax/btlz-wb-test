@@ -1,54 +1,28 @@
-# Шаблон для выполнения тестового задания
+# Тестовое задание
 
-## Описание
-Шаблон подготовлен для того, чтобы попробовать сократить трудоемкость выполнения тестового задания.
+## Требования
 
-В шаблоне настоены контейнеры для `postgres` и приложения на `nodejs`.  
-Для взаимодействия с БД используется `knex.js`.  
-В контейнере `app` используется `build` для приложения на `ts`, но можно использовать и `js`.
+Docker и Docker Compose
+Node.js (для локального запуска, если не через Docker)
+Аккаунт Google с сервисным ключом для доступа к Google Sheets
+Доступ к API Wildberries (WB_API_TOKEN)
+Создать сервисный аккаунт в Google Cloud и скачать JSON ключ.
 
-Шаблон не является обязательным!\
-Можно использовать как есть или изменять на свой вкус.
+## Запуск
 
-Все настройки можно найти в файлах:
-- compose.yaml
-- dockerfile
-- package.json
-- tsconfig.json
-- src/config/env/env.ts
-- src/config/knex/knexfile.ts
+Создайте .env в корне проекта и укажите переменные окружения:
+примеры есть в example.env
 
-## Команды:
+Поместите google-credentials.json в проект и укажите путь через переменные окружения
+Создайте таблицу Google Sheets.
+Назовите лист stocks_coefs.
+Добавьте сервисный email (из JSON файла Google credentials) в редакторы таблицы.
+Получите spreadsheet_id таблицы.
 
-Запуск базы данных:
-```bash
-docker compose up -d --build postgres
-```
+### Seed или ручное добавление id
 
-Для выполнения миграций и сидов не из контейнера:
-```bash
-npm run knex:dev migrate latest
-```
+Вариант 1: Раскомментируйте seed в src/postgres/seeds/spreadsheets.js и вставьте нужный spreadsheet_id.
+Вариант 2: После запуска сервиса добавьте spreadsheet_id напрямую в таблицу spreadsheets в PostgreSQL.
 
-```bash
-npm run knex:dev seed run
-```
-Также можно использовать и остальные команды (`migrate make <name>`,`migrate up`, `migrate down` и т.д.)
-
-Для запуска приложения в режиме разработки:
-```bash
-npm run dev
-```
-
-Запуск проверки самого приложения:
-```bash
-docker compose up -d --build app
-```
-
-Для финальной проверки рекомендую:
-```bash
-docker compose down --rmi local --volumes
-docker compose up --build
-```
-
-PS: С наилучшими пожеланиями!
+PS: С наилучшими пожеланиями Наместников Максим!
+TG: @DdayMax

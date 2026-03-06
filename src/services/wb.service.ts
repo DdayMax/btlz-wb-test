@@ -1,27 +1,27 @@
 import env from "#config/env/env.js";
 import { wbApiResponseSchema } from "#types/wb.js";
-import WbApiClient from "../../clients/wbApiClient.js";
-import { getTariffsSorted, saveBoxTariffs } from "./wb.repo.js";
+import WbApiClient from "../clients/wbApiClient.js";
+import { getTariffsSorted, saveBoxTariffs } from "../postgres/repos/wb.repo.js";
 
 const wbApiClient = new WbApiClient({
     wbApiUrl: env.WB_API_URL,
     token: env.WB_API_TOKEN,
 });
 
-async function getBoxTariffs() {
-    const res = await wbApiClient.getBoxTariffs(new Date());
-
+async function getBoxTariffs(date: Date) {
+    const res = await wbApiClient.getBoxTariffs(date);
     const { response } = wbApiResponseSchema.parse(res);
     return response;
 }
 
-export async function fetchAndSave() {
-    const response = await getBoxTariffs();
-    await saveBoxTariffs(response);
+export async function fetchAndSave(date: Date) {
+    const response = await getBoxTariffs(date);
+    await saveBoxTariffs(response, date);
 }
 
 export async function getFormattedTariffs(sortBy: "ASC" | "DESC") {
     const tariffs = await getTariffsSorted(sortBy);
+    if (!tariffs.length) throw new Error("tariffs db is empty");
 
     return tariffs.map((t) => [
         new Intl.DateTimeFormat("sv-SE").format(t.date),

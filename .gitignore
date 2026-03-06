@@ -2,5 +2,5 @@ node_modules
 .local
 .env
 dist
-google-cridentials.json
+google-credentials.json
 logs

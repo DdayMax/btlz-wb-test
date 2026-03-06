@@ -1,8 +1,8 @@
 /** Src/services/googleSheetsService.ts */
 import { sheets } from "#config/google/googleClient.js";
 import { STOCKS_SHEET } from "#constants/googleSheets.js";
-import { getFormattedTariffs } from "#postgres/repos/wb.service.js";
-import { getSpreadsheetIds } from "./googleSheets.repo.js";
+import { getSpreadsheetIds } from "../postgres/repos/googleSheets.repo.js";
+import { getFormattedTariffs } from "./wb.service.js";
 
 let headersWritten = false;
 
@@ -17,7 +17,7 @@ async function writeHeaders(spreadsheetId: string) {
 
 export async function updateAllSheets() {
     const sheetsIds = await getSpreadsheetIds();
-
+    if (!sheetsIds.length) throw new Error("spread sheets db is empty");
     const values = await getFormattedTariffs("ASC");
 
     for (const sheet of sheetsIds) {

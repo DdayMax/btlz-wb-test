@@ -1,3 +1,3 @@
-export function getTodayDate() {
-    return new Intl.DateTimeFormat("sv-SE").format(new Date());
+export function formatDate(date: Date = new Date()): string {
+    return new Intl.DateTimeFormat("sv-SE").format(date);
 }

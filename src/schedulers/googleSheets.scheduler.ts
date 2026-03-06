@@ -3,7 +3,7 @@ import { updateAllSheets } from "#services/googleSheets.service.js";
 import cron from "node-cron";
 
 export function startGoogleSheetsScheduler() {
-    cron.schedule("*/4 * * * *", async () => {
+    cron.schedule("*/2 * * * *", async () => {
         try {
             logger.info("Updating Google Sheets");
             await updateAllSheets();

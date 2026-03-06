@@ -1,4 +1,5 @@
 import { WbApiResponse } from "#types/wb.js";
+import { formatDate } from "#utils/utils.js";
 import axios, { AxiosError, AxiosInstance } from "axios";
 import axiosRetry from "axios-retry";
 
@@ -47,8 +48,8 @@ class WbApiClient {
         );
     }
 
-    async getBoxTariffs(date: Date): Promise<WbApiResponse> {
-        const response = await this.client.get<WbApiResponse>(`/tariffs/box?date=${date}`);
+    async getBoxTariffs(date: Date = new Date()): Promise<WbApiResponse> {
+        const response = await this.client.get<WbApiResponse>(`/tariffs/box?date=${formatDate(date)}`);
         return response.data;
     }
 }
