@@ -4,9 +4,9 @@
 
 Таймер в расписаниях настроен так, чтобы данные с WB API забирались каждый час, а Google Sheets обновлялся спустя 2 минуты, рекомендуется понизить частоту таймера, для более комфортного тестирования:
 
-Для src\schedulers\wb.scheduler.ts - "_/1 _ \* \* \*"
+Для src\schedulers\wb.scheduler.ts - `*/1 * * * *`
 
-Для src\schedulers\googleSheets.scheduler.ts - "_/2 _ \* \* \*"
+Для src\schedulers\googleSheets.scheduler.ts - `*/2 * * * *`
 
 ## Требования
 
