@@ -32,5 +32,5 @@ Node.js (для локального запуска, если не через Do
 Вариант 1: Раскомментируйте seed в src/postgres/seeds/spreadsheets.js и вставьте нужный spreadsheet_id.
 Вариант 2: После запуска сервиса добавьте spreadsheet_id напрямую в таблицу spreadsheets в PostgreSQL.
 
-PS: С наилучшими пожеланиями Наместников Максим!
+PS: С наилучшими пожеланиями, Наместников Максим!
 TG: @DdayMax
